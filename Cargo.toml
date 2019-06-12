@@ -1,0 +1,8 @@
+[package]
+name = "xenforeignmemory"
+version = "0.1.0"
+authors = ["Mathieu Tarral <mathieu.tarral@protonmail.com>"]
+edition = "2018"
+
+[dependencies]
+xenforeignmemory-sys = "0.1.0"
