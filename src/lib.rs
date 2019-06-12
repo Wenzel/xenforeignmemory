@@ -31,3 +31,8 @@ impl XenForeignMem {
     }
 }
 
+impl Drop for XenForeignMem {
+    fn drop(&mut self) {
+        self.close();
+    }
+}
