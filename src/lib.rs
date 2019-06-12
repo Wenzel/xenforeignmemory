@@ -20,7 +20,7 @@ impl XenForeignMem {
         });
     }
 
-    pub fn close(&mut self) -> Result<(),&str> {
+    fn close(&mut self) -> Result<(),&str> {
         let result = unsafe {
             xenforeignmemory_sys::xenforeignmemory_close(self.handle)
         };
