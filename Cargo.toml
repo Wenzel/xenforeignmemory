@@ -5,4 +5,6 @@ authors = ["Mathieu Tarral <mathieu.tarral@protonmail.com>"]
 edition = "2018"
 
 [dependencies]
+libloading = "0.6.1"
+log = "0.4.8"
 xenforeignmemory-sys = { git = "https://github.com/Wenzel/xenforeignmemory-sys" }
