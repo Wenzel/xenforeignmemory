@@ -3,6 +3,7 @@ name = "xenforeignmemory"
 version = "0.1.0"
 authors = ["Mathieu Tarral <mathieu.tarral@protonmail.com>"]
 edition = "2018"
+license = "GPL-3.0-only"
 
 [dependencies]
 xenforeignmemory-sys = { git = "https://github.com/Wenzel/xenforeignmemory-sys" }
