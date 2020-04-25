@@ -6,4 +6,7 @@ edition = "2018"
 license = "GPL-3.0-only"
 
 [dependencies]
+libloading = "0.6.1"
+log = "0.4.8"
+failure = "0.1.7"
 xenforeignmemory-sys = { git = "https://github.com/Wenzel/xenforeignmemory-sys" }
