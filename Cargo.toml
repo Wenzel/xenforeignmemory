@@ -3,7 +3,13 @@ name = "xenforeignmemory"
 version = "0.1.0"
 authors = ["Mathieu Tarral <mathieu.tarral@protonmail.com>"]
 edition = "2018"
+description = "Safe bindings to xenforeignmemory"
+readme = "README.md"
+homepage = "https://github.com/Wenzel/xenforeignmemory"
+repository = "https://github.com/Wenzel/xenforeignmemory"
 license = "GPL-3.0-only"
+keywords = ["xen", "xenforeignmemory"]
+categories = ["api-bindings"]
 
 [dependencies]
 libloading = "0.6.1"
