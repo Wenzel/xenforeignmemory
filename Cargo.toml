@@ -15,4 +15,4 @@ categories = ["api-bindings"]
 libloading = "0.6.1"
 log = "0.4.8"
 failure = "0.1.7"
-xenforeignmemory-sys = { git = "https://github.com/Wenzel/xenforeignmemory-sys" }
+xenforeignmemory-sys = "0.1.0"
