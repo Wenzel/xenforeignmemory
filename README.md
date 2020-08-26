@@ -1,5 +1,7 @@
 # xenforeignmemory
 
+[![Build Status](https://travis-ci.org/Wenzel/xenforeignmemory.svg?branch=master)](https://travis-ci.org/Wenzel/xenforeignmemory)
+[![Crates.io](https://img.shields.io/crates/v/xenforeignmemory.svg)](https://crates.io/crates/xenforeignmemory)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
 > Rust bindings for `xenforeignmemory`
