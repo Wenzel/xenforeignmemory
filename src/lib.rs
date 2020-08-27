@@ -18,20 +18,37 @@ pub struct XenForeignMem {
     libxenforeignmemory: LibXenForeignMemory,
 }
 
+pub trait XenForeignMemoryIntrospectable: std::fmt::Debug {
+    fn init(&mut self) -> Result<(), Error>;
+    fn map(&self, domid: u32, prot: c_int, gfn: u64) -> Result<&mut [u8], Error>;
+    fn unmap(&self, page: &mut [u8]) -> Result<(), Box<IoError>>;
+    fn close(&mut self) -> Result<(), Error>;
+}
+
+pub fn create_xen_foreignmemory() -> XenForeignMem {
+    XenForeignMem::new(unsafe { LibXenForeignMemory::new() })
+}
+
 impl XenForeignMem {
-    pub fn new() -> Result<Self, Error> {
-        let libxenforeignmemory = unsafe { LibXenForeignMemory::new() };
-        let fn_handle = (libxenforeignmemory.open)(null_mut(), 0);
+    pub fn new(libxenforeignmemory: LibXenForeignMemory) -> XenForeignMem {
+        XenForeignMem {
+            handle: null_mut(),
+            libxenforeignmemory,
+        }
+    }
+}
+
+impl XenForeignMemoryIntrospectable for XenForeignMem {
+    fn init(&mut self) -> Result<(), Error> {
+        let fn_handle = (self.libxenforeignmemory.open)(null_mut(), 0);
         if fn_handle == null_mut() {
             return Err(format_err!("Fail to open xenforeignmemory interface"));
         }
-        return Ok(XenForeignMem {
-            handle: fn_handle,
-            libxenforeignmemory,
-        });
+        self.handle = fn_handle;
+        Ok(())
     }
 
-    pub fn map(&self, domid: u32, prot: c_int, gfn: u64) -> Result<&mut [u8], Error> {
+    fn map(&self, domid: u32, prot: c_int, gfn: u64) -> Result<&mut [u8], Error> {
         let arr_gfn: [c_ulong; 1] = [gfn];
         let map = (self.libxenforeignmemory.map)(
             self.handle,
@@ -50,7 +67,7 @@ impl XenForeignMem {
         Ok(unsafe { slice::from_raw_parts_mut(map, 4096 as usize) })
     }
 
-    pub fn unmap(&self, page: &mut [u8]) -> Result<(), Box<IoError>> {
+    fn unmap(&self, page: &mut [u8]) -> Result<(), Box<IoError>> {
         let addr = page.as_mut_ptr() as *mut c_void;
         let result = (self.libxenforeignmemory.unmap)(self.handle, addr, 1);
         match result {
