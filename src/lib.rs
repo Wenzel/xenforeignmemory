@@ -53,7 +53,7 @@ impl XenForeignMem {
             // TODO
             // size of the page mapped is always 4K ?
             // if so, get it from xenctrl::PAGE_SIZE
-            Ok(unsafe { slice::from_raw_parts_mut(map, 4096 as usize) })
+            Ok(unsafe { slice::from_raw_parts_mut(map, 4096) })
         }
     }
 
