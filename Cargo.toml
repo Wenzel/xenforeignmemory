@@ -16,3 +16,9 @@ libloading = "0.7.0"
 log = "0.4.8"
 thiserror = "1.0"
 xenforeignmemory-sys = "0.1.0"
+
+[package.metadata.release]
+# releases are managed by cargo release, but publication is done on the CI
+# this metadata prevents a misuse when --skip-publish flag is missing from cargo
+# release command line
+disable-publish = true
