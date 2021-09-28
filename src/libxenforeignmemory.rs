@@ -3,10 +3,10 @@ use std::os::raw::{c_int, c_uint, c_void};
 use xenforeignmemory_sys::{xen_pfn_t, xenforeignmemory_handle, xentoollog_logger};
 
 use libloading::os::unix::Symbol as RawSymbol;
-use libloading::{Error, Library, Symbol};
+use libloading::{library_filename, Error, Library, Symbol};
 use log::info;
 
-const LIBXENFOREIGNMEMORY_FILENAME: &str = "libxenforeignmemory.so";
+const LIBXENFOREIGNMEMORY_BASENAME: &str = "xenforeignmemory.so";
 // xenforeignmemory_open
 type FnOpen =
     fn(logger: *mut xentoollog_logger, open_flags: c_uint) -> *mut xenforeignmemory_handle;
@@ -35,8 +35,9 @@ pub struct LibXenForeignMemory {
 
 impl LibXenForeignMemory {
     pub unsafe fn new() -> Result<Self, Error> {
-        info!("Loading {}", LIBXENFOREIGNMEMORY_FILENAME);
-        let lib = Library::new(LIBXENFOREIGNMEMORY_FILENAME)?;
+        let lib_filename = library_filename(LIBXENFOREIGNMEMORY_BASENAME);
+        info!("Loading {}", lib_filename.to_str().unwrap());
+        let lib = Library::new(lib_filename)?;
         // load symbols
         let open_sym: Symbol<FnOpen> = lib.get(b"xenforeignmemory_open\0")?;
         let open = open_sym.into_raw();
