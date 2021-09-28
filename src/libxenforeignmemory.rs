@@ -6,7 +6,7 @@ use libloading::os::unix::Symbol as RawSymbol;
 use libloading::{library_filename, Error, Library, Symbol};
 use log::info;
 
-const LIBXENFOREIGNMEMORY_BASENAME: &str = "xenforeignmemory.so";
+const LIBXENFOREIGNMEMORY_BASENAME: &str = "xenforeignmemory";
 // xenforeignmemory_open
 type FnOpen =
     fn(logger: *mut xentoollog_logger, open_flags: c_uint) -> *mut xenforeignmemory_handle;
