@@ -2,6 +2,7 @@ mod libxenforeignmemory;
 
 extern crate xenforeignmemory_sys;
 
+use libloading::Error as libError;
 use std::io::Error as IoError;
 use std::os::raw::{c_int, c_uchar, c_ulong, c_void};
 use std::ptr::null_mut;
@@ -17,7 +18,7 @@ pub struct XenForeignMem {
 
 impl XenForeignMem {
     pub fn new() -> Result<Self, XenForeignMemoryError> {
-        let libxenforeignmemory = unsafe { LibXenForeignMemory::new() };
+        let libxenforeignmemory = unsafe { LibXenForeignMemory::new()? };
         let fn_handle = (libxenforeignmemory.open)(null_mut(), 0);
         if fn_handle.is_null() {
             Err(XenForeignMemoryError::OpenError(IoError::last_os_error()))
@@ -102,4 +103,6 @@ pub enum XenForeignMemoryError {
         #[source]
         source: IoError,
     },
+    #[error("Failed to load the library")]
+    LibraryLoadingError(#[from] libError),
 }
