@@ -26,6 +26,9 @@ type FnUnmap = fn(fmem: *mut xenforeignmemory_handle, addr: *mut c_void, pages: 
 
 #[derive(Debug)]
 pub struct LibXenForeignMemory {
+    #[allow(dead_code)]
+    // This field is never directly accessed but must be kept alive to ensure that
+    // dynamically loaded symbols remain valid for the lifetime of the struct.
     lib: Library,
     pub open: RawSymbol<FnOpen>,
     pub close: RawSymbol<FnClose>,

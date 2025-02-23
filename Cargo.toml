@@ -12,10 +12,10 @@ keywords = ["xen", "xenforeignmemory"]
 categories = ["api-bindings"]
 
 [dependencies]
-libloading = "0.7.0"
-log = "0.4.8"
-thiserror = "1.0"
-xenforeignmemory-sys = "0.1.0"
+libloading = "0.8.6"
+log = "0.4.26"
+thiserror = "2.0.11"
+xenforeignmemory-sys = "0.2.0"
 
 [package.metadata.release]
 # releases are managed by cargo release, but publication is done on the CI
