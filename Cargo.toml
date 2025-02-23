@@ -21,4 +21,4 @@ xenforeignmemory-sys = "0.2.0"
 # releases are managed by cargo release, but publication is done on the CI
 # this metadata prevents a misuse when --skip-publish flag is missing from cargo
 # release command line
-disable-publish = true
+publish = false
